@@ -1,5 +1,7 @@
 package br.ce.wcaquino.servicos;
 
+import br.ce.wcaquino.daos.LocacaoDAO;
+import br.ce.wcaquino.daos.LocacaoDAOFake;
 import br.ce.wcaquino.exceptions.DivisaoPorZeroException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,4 +61,15 @@ public class CalculadoraTest {
         calculadora.dividir(a, b);
 
     }
+
+    @Test
+    public void DeveDividir() {
+        String a = "6";
+        String b = "3";
+
+        int resultado = calculadora.dividir(a, b);
+
+        Assert.assertEquals(2, resultado);
+    }
+
 }

@@ -32,4 +32,12 @@ public class Usuario {
 	public int hashCode() {
 		return Objects.hash(nome);
 	}
+
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("Usuario{");
+		sb.append("nome='").append(nome).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }

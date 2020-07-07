@@ -1,5 +1,6 @@
 package br.ce.wcaquino.servicos;
 
+import br.ce.wcaquino.daos.LocacaoDAO;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
@@ -9,18 +10,29 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static br.ce.wcaquino.servicos.builders.FilmeBuilder.umFilme;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
 public class CalculoValorLocacaoTest {
 
-    LocacaoService service;
+    @InjectMocks
+    private LocacaoService service;
+
+    @Mock
+    private LocacaoDAO locacaoDAO;
+
+    @Mock
+    private SPCService spcService;
 
     @Parameterized.Parameter
     public List<Filme> filmes;
@@ -33,16 +45,21 @@ public class CalculoValorLocacaoTest {
 
     @Before
     public void setup() {
-        service = new LocacaoService();
+        MockitoAnnotations.initMocks(this);
+//        service = new LocacaoService();
+//        locacaoDAO = mock(LocacaoDAO.class);
+//        spcService = mock(SPCService.class);
+//        service.setLocacaoDAO(locacaoDAO);
+//        service.setSpcService(spcService);
     }
 
-    private static Filme filme1 = new Filme("Filme1", 2, 4.0);
-    private static Filme filme2 = new Filme("Filme2", 2, 4.0);
-    private static Filme filme3 = new Filme("Filme3", 2, 4.0);
-    private static Filme filme4 = new Filme("Filme4", 2, 4.0);
-    private static Filme filme5 = new Filme("Filme5", 2, 4.0);
-    private static Filme filme6 = new Filme("Filme6", 2, 4.0);
-    private static Filme filme7 = new Filme("Filme6", 2, 4.0);
+    private static Filme filme1 = umFilme().agora();
+    private static Filme filme2 = umFilme().agora();
+    private static Filme filme3 = umFilme().agora();
+    private static Filme filme4 = umFilme().agora();
+    private static Filme filme5 = umFilme().agora();
+    private static Filme filme6 = umFilme().agora();
+    private static Filme filme7 = umFilme().agora();
 
     @Parameterized.Parameters(name = "{2}")
     public static Collection<Object[]> getParametros() {
@@ -67,7 +84,6 @@ public class CalculoValorLocacaoTest {
         //verificacao
         assertThat(resultado.getValor(), is(valorLocacao));
 
-        System.out.println("!");
     }
 
 }
